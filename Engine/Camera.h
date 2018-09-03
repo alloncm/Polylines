@@ -33,8 +33,8 @@ public:
 	{
 		for (auto& v : poly)
 		{
-			v *= scale;
 			v -= pos;
+			v *= scale;
 		}
 		ct.DrawClosedPolygone(poly, c);
 	}

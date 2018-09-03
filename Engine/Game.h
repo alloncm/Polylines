@@ -27,6 +27,8 @@
 #include "Entity.h"
 #include "Camera.h"
 #include <cmath>
+#include<random>
+#include<limits>
 
 class Game
 {
@@ -41,6 +43,7 @@ private:
 	/********************************/
 	/*  User Functions              */
 	static  std::vector<Vec2_<float>> MakeStar(float innerR, float outerR, int numSpikes = 5);
+	bool IsStarsCollide(Vec2_<float> pos, float radius);
 	/********************************/
 private:
 	MainWindow& wnd;
@@ -48,7 +51,11 @@ private:
 	/********************************/
 	/*  User Variables              */
 	CordinateTransformer ct;
-	Entity ent;
+	std::vector<Entity> entities;
 	Camera camera;
+	std::random_device rd;
+	std::mt19937 rng;
+	float scale;
+	Vec2_<int> mousePos;
 	/********************************/
 };
