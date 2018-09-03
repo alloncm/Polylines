@@ -20,6 +20,8 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+#include<fstream>
+#include"Timer.h"
 
 Game::Game(MainWindow& wnd)
 	:
@@ -31,20 +33,26 @@ Game::Game(MainWindow& wnd)
 	rd(),
 	rng(rd()),
 	scale(0.01),
-	mousePos(0,0)
+	mousePos(0,0),
+	timer()
 {
+	//for benchmarking test 
+	std::ofstream ofs("benchmark.txt");
+	Timer t;
+
 	std::numeric_limits<unsigned int> nl;
-	std::uniform_real_distribution<float> scale(0.3,5.0);
+	std::uniform_real_distribution<float> scale(0.8,3.0);
 	std::uniform_int_distribution<int> xPos(-3000, 3000);
-	std::uniform_int_distribution<int> yPos(-1500, 1500);
-	std::uniform_int_distribution<int> maxSize(50, 200);
+	std::uniform_int_distribution<int> yPos(-2250, 2250);
+	std::uniform_int_distribution<int> maxSize(70, 200);
 	std::uniform_int_distribution<int> minSize(20, 70);
 	std::uniform_int_distribution<int> spikes(3, 15);
 	std::uniform_int_distribution<unsigned int> color(0,nl.max() );
-	std::uniform_real_distribution<float> downScale(0.1, 0.9);
-	std::uniform_real_distribution<float> speedScale(0.05, 0.5);
-
-	for (int i = 0; i <200; i++)
+	std::uniform_real_distribution<float> downScale(0.4, 0.65);
+	std::uniform_real_distribution<float> speedScale(0.001, 0.07);
+	std::uniform_real_distribution<float> speedColor(1.0, 3.5);
+	Timer total;		//also for benchmark
+	for (int i = 0; i <100; i++)
 	{
 		float r = maxSize(rng);
 		Vec2_<float> pos ( (float)xPos(rng),(float)yPos(rng) );
@@ -57,11 +65,11 @@ Game::Game(MainWindow& wnd)
 			s = scale(rng);
 		}
 		auto v = MakeStar(minSize(rng),r , spikes(rng));
-		Entity ent (v, pos, s, Color(color(rng)),downScale(rng));
-
+		Star ent (v, pos, s, Color(color(rng)),downScale(rng),speedScale(rng),speedColor(rng));
+		ofs <<"Star #"<<i<<": "<< (t.Tick())<<std::endl;
 		entities.emplace_back(ent);
 	}
-
+	ofs << "total time of the operation: " << total.Tick() << std::endl;
 }
 
 void Game::Go()
@@ -74,6 +82,7 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	MakeEffects();
 	if (wnd.kbd.KeyIsPressed(VK_UP))
 	{
 		camera.MoveBy({ 0,5 });
@@ -149,6 +158,15 @@ bool Game::IsStarsCollide(Vec2_<float> pos, float radius)
 		}
 	}
 	return false;
+}
+
+void Game::MakeEffects()
+{
+	float dt = timer.Tick();
+	for (auto& ent : entities)
+	{
+		ent.Effects(dt);
+	}
 }
 
 void Game::ComposeFrame()

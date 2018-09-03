@@ -24,11 +24,12 @@
 #include "Mouse.h"
 #include "Graphics.h"
 #include "CordinateTransformer.h"
-#include "Entity.h"
+#include "Star.h"
 #include "Camera.h"
 #include <cmath>
 #include<random>
 #include<limits>
+#include"Timer.h"
 
 class Game
 {
@@ -44,6 +45,7 @@ private:
 	/*  User Functions              */
 	static  std::vector<Vec2_<float>> MakeStar(float innerR, float outerR, int numSpikes = 5);
 	bool IsStarsCollide(Vec2_<float> pos, float radius);
+	void MakeEffects();
 	/********************************/
 private:
 	MainWindow& wnd;
@@ -51,11 +53,12 @@ private:
 	/********************************/
 	/*  User Variables              */
 	CordinateTransformer ct;
-	std::vector<Entity> entities;
+	std::vector<Star> entities;
 	Camera camera;
 	std::random_device rd;
 	std::mt19937 rng;
 	float scale;
 	Vec2_<int> mousePos;
+	Timer timer;
 	/********************************/
 };

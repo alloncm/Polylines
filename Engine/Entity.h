@@ -6,13 +6,12 @@
 class Entity
 {
 public:
-	Entity(std::vector<Vec2_<float>> poly, Vec2_<float> p = { 0,0 },float s = 1.0f, Color color = Colors::White,float ds=1.0f)
+	Entity(std::vector<Vec2_<float>> poly, Vec2_<float> p = { 0,0 },float s = 1.0f, Color color = Colors::White)
 		:
 		verticies(std::move(poly)),
 		pos(p),
 		scale(s),
-		c(color),
-		downScale(ds)
+		c(color)
 	{
 	}
 	const Vec2_<float>& GetPosition() const 
@@ -35,7 +34,7 @@ public:
 	{
 		pos += offset;
 	}
-	std::vector<Vec2_<float>> GetPolyline() const 
+	virtual std::vector<Vec2_<float>> GetPolyline() const 
 	{
 		auto poly = verticies;
 		for (auto& v : poly)
@@ -45,7 +44,7 @@ public:
 		}
 		return poly;
 	}
-	Color GetColor()const
+	virtual Color GetColor()const
 	{
 		return c;
 	}
@@ -53,14 +52,11 @@ public:
 	{
 		c = color;
 	}
-	float GetDownScale()const
-	{
-		return downScale;
-	}
-private:
+	
+protected:
 	float scale;
 	Vec2_<float> pos;
 	std::vector<Vec2_<float>> verticies;
 	Color c;
-	float downScale;
+	
 };
