@@ -30,6 +30,7 @@
 #include<random>
 #include<limits>
 #include"Timer.h"
+#include "StarField.h"
 
 class Game
 {
@@ -43,9 +44,7 @@ private:
 	void UpdateModel();
 	/********************************/
 	/*  User Functions              */
-	static  std::vector<Vec2_<float>> MakeStar(float innerR, float outerR, int numSpikes = 5);
-	bool IsStarsCollide(Vec2_<float> pos, float radius);
-	void MakeEffects();
+	
 	/********************************/
 private:
 	MainWindow& wnd;
@@ -53,12 +52,8 @@ private:
 	/********************************/
 	/*  User Variables              */
 	CordinateTransformer ct;
-	std::vector<Star> entities;
+	
 	Camera camera;
-	std::random_device rd;
-	std::mt19937 rng;
-	float scale;
-	Vec2_<int> mousePos;
-	Timer timer;
+	StarField sf;
 	/********************************/
 };
