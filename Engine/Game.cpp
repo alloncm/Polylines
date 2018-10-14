@@ -41,10 +41,10 @@ Game::Game(MainWindow& wnd)
 	Timer t;
 
 	std::numeric_limits<unsigned int> nl;
-	std::uniform_real_distribution<float> scale(0.8,3.0);
-	std::uniform_int_distribution<int> xPos(-3000, 3000);
-	std::uniform_int_distribution<int> yPos(-2250, 2250);
-	std::uniform_int_distribution<int> maxSize(70, 200);
+	std::uniform_real_distribution<float> scale(0.65,3.0);
+	std::uniform_int_distribution<int> xPos(-10000, 10000);
+	std::uniform_int_distribution<int> yPos(-7500, 7500);
+	std::uniform_int_distribution<int> maxSize(70, 150);
 	std::uniform_int_distribution<int> minSize(20, 70);
 	std::uniform_int_distribution<int> spikes(3, 15);
 	std::uniform_int_distribution<unsigned int> color(0,nl.max() );
@@ -52,7 +52,7 @@ Game::Game(MainWindow& wnd)
 	std::uniform_real_distribution<float> speedScale(0.001, 0.07);
 	std::uniform_real_distribution<float> speedColor(1.0, 3.5);
 	Timer total;		//also for benchmark
-	for (int i = 0; i <100; i++)
+	for (int i = 0; i <2500; i++)
 	{
 		float r = maxSize(rng);
 		Vec2_<float> pos ( (float)xPos(rng),(float)yPos(rng) );
@@ -111,8 +111,10 @@ void Game::UpdateModel()
 		pos.y *= -1;
 		Vec2_<float> vec = Cast(pos);
 		vec = vec.Normalize();
-		vec *= 10;
+		vec *= 20;								//making it move faster
+		vec /= camera.GetScale();				//sacling the movement 
 		camera.MoveBy(vec);
+		mousePos = eve.GetPos();				//saving the last position of the mouse
 	}
 	if ( eve.GetType() == Mouse::Event::Type::WheelUp)
 	{
@@ -126,7 +128,6 @@ void Game::UpdateModel()
 			camera.SetScale(scale);
 		}
 	}
-	
 }
 
 std::vector<Vec2_<float>> Game::MakeStar(float innerR, float outerR, int numSpikes)

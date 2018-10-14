@@ -39,6 +39,7 @@ public:
 		}
 		return poly;
 	}
+	/*
 	virtual Color GetColor()const override
 	{
 		if (white)
@@ -47,6 +48,7 @@ public:
 		}
 		return c;
 	}
+	*/
 private:
 	void ShrinkEffect()
 	{
@@ -79,7 +81,7 @@ private:
 			curTime = 0.0f;
 		}
 		*/
-
+		this->c.SetA(0.0);
 	}
 	
 private:
