@@ -29,7 +29,7 @@ Game::Game(MainWindow& wnd)
 	gfx(wnd),
 	ct(gfx),
 	camera(ct),
-	sf(wnd,camera)
+	plank({0,100},-380,-50,50,10)
 {}
 
 void Game::Go()
@@ -42,11 +42,10 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	sf.Update();
 }
 
 void Game::ComposeFrame()
 {
-	sf.Draw();
+	ct.DrawClosedPolygone(plank.GetPolyline(),plank.GetColor());
 }
 

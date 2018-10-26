@@ -30,7 +30,7 @@
 #include<random>
 #include<limits>
 #include"Timer.h"
-#include "StarField.h"
+#include "Plank.h"
 
 class Game
 {
@@ -54,6 +54,7 @@ private:
 	CordinateTransformer ct;
 	
 	Camera camera;
-	StarField sf;
+
+	Plank plank;
 	/********************************/
 };

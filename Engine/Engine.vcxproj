@@ -148,6 +148,7 @@
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="Mouse.h" />
+    <ClInclude Include="Plank.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Star.h" />
     <ClInclude Include="StarField.h" />
@@ -162,6 +163,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="Plank.cpp" />
     <ClCompile Include="StarField.cpp" />
     <ClCompile Include="Vec2.cpp" />
   </ItemGroup>
