@@ -1,6 +1,6 @@
 #pragma once
 #include "Graphics.h"
-
+#include"Drawable.h"
 class CordinateTransformer
 {
 public:
@@ -9,15 +9,12 @@ public:
 		gfx(g)
 	{
 	}
-	void DrawClosedPolygone(std::vector<Vec2_<float>>& poly, Color c)
+	void Draw(Drawable& drawable)
 	{
 		Vec2_<float> offset(float(Graphics::ScreenWidth / 2), float(Graphics::ScreenHeight / 2));
-		for (auto& v : poly)
-		{
-			v.y *= -1.0f;
-			v += offset;
-		}
-		gfx.DrawClosedPolygone(poly, c);
+		drawable.SacleIndependent(1.0f, -1.0f);
+		drawable.Translate(offset);
+		drawable.Render(gfx);
 	}
 private:
 	Graphics& gfx;

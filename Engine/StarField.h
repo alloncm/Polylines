@@ -21,9 +21,9 @@ public:
 	StarField(MainWindow& m,Camera& c);
 	void Update();
 	void Draw();
-
+	static std::vector<Vec2_<float>> MakeStar(float innerR, float outerR, int numSpikes);
 private:
-	std::vector<Vec2_<float>> MakeStar(float innerR, float outerR, int numSpikes);
+	
 	bool IsStarsCollide(Vec2_<float> pos, float radius);
 	void MakeEffects();
 };

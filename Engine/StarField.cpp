@@ -1,5 +1,6 @@
+#define NOMINMAX
 #include "StarField.h"
-
+#include<limits>
 StarField::StarField(MainWindow& m, Camera& c)
 	:
 	wnd(m),
@@ -15,14 +16,13 @@ StarField::StarField(MainWindow& m, Camera& c)
 	std::ofstream ofs("benchmark.txt");
 	Timer t;
 
-	std::numeric_limits<unsigned int> nl;
 	std::uniform_real_distribution<float> scale(0.65, 3.0);
 	std::uniform_int_distribution<int> xPos(-10000, 10000);
 	std::uniform_int_distribution<int> yPos(-7500, 7500);
 	std::uniform_int_distribution<int> maxSize(70, 150);
 	std::uniform_int_distribution<int> minSize(20, 70);
 	std::uniform_int_distribution<int> spikes(3, 15);
-	std::uniform_int_distribution<unsigned int> color(0, nl.max());
+	std::uniform_int_distribution<unsigned int> color(0,std::numeric_limits<unsigned int>::max());
 	std::uniform_real_distribution<float> downScale(0.4, 0.65);
 	std::uniform_real_distribution<float> speedScale(0.001, 0.07);
 	std::uniform_real_distribution<float> speedColor(1.0, 3.5);
@@ -141,6 +141,6 @@ void StarField::Draw()
 {
 	for (const auto& ent : entities)
 	{
-		camera.DrawClosedPolygone(ent.GetPolyline(), ent.GetColor());
+		camera.Draw(ent.GetDrawable());
 	}
 }

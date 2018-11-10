@@ -22,6 +22,7 @@
 #include "Game.h"
 #include<fstream>
 #include"Timer.h"
+#include"StarField.h"
 
 Game::Game(MainWindow& wnd)
 	:
@@ -29,7 +30,7 @@ Game::Game(MainWindow& wnd)
 	gfx(wnd),
 	ct(gfx),
 	camera(ct),
-	plank({0,100},-380,-50,50,10)
+	plank({100,200},-380,-100,290,10)
 {}
 
 void Game::Go()
@@ -42,10 +43,26 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	if (wnd.kbd.KeyIsPressed(VK_LEFT))
+	{
+		camera.MoveBy({ -10,0 });
+	}
+	if (wnd.kbd.KeyIsPressed(VK_RIGHT))
+	{
+		camera.MoveBy({ 10,0 });
+	}
+	if (wnd.kbd.KeyIsPressed(VK_UP))
+	{
+		camera.MoveBy({ 0,10 });
+	}
+	if (wnd.kbd.KeyIsPressed(VK_DOWN))
+	{
+		camera.MoveBy({ 0,-10 });
+	}
 }
 
 void Game::ComposeFrame()
 {
-	ct.DrawClosedPolygone(plank.GetPolyline(),plank.GetColor());
+	camera.Draw(plank.GetDrawable());
 }
 

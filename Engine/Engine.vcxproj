@@ -141,6 +141,7 @@
     <ClInclude Include="ChiliWin.h" />
     <ClInclude Include="Colors.h" />
     <ClInclude Include="CordinateTransformer.h" />
+    <ClInclude Include="Drawable.h" />
     <ClInclude Include="DXErr.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Game.h" />

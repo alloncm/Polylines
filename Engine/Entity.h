@@ -3,17 +3,17 @@
 #include "Vec2.h"
 #include <vector>
 #include"Colors.h"
-
+#include"Drawable.h"
 class Entity
 {
 public:
-	Entity(std::vector<Vec2_<float>> poly, Vec2_<float> p = { 0,0 },float s = 1.0f, Color color = Colors::White)
+	Entity(std::vector<Vec2_<float>> poly, Vec2_<float> p = { 0,0 }, Color color = Colors::White)
 		:
 		verticies(std::move(poly)),
 		pos(p),
-		scale(s),
 		c(color)
 	{
+		scale = 1.0f;
 	}
 	const Vec2_<float>& GetPosition() const 
 	{
@@ -35,16 +35,18 @@ public:
 	{
 		pos += offset;
 	}
-	virtual std::vector<Vec2_<float>> GetPolyline() const 
+
+	Drawable GetDrawable() const
 	{
-		auto poly = verticies;
-		for (auto& v : poly)
-		{
-			v *= scale;
-			v += pos;
-		}
-		return poly;
+		Drawable d(verticies, c);
+		d.Scale(scale);
+		d.Translate(pos);
+		return d;
 	}
+	void SetModel(std::vector<Vec2_<float>> model)
+	{
+		verticies = std::move(model);
+	}	
 	virtual Color GetColor()const
 	{
 		return c;

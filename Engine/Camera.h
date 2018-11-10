@@ -29,14 +29,11 @@ public:
 	{
 		return scale;
 	}
-	void DrawClosedPolygone(std::vector <Vec2_<float>> poly,Color c)
+	void Draw(Drawable& draw)
 	{
-		for (auto& v : poly)
-		{
-			v -= pos;
-			v *= scale;
-		}
-		ct.DrawClosedPolygone(poly, c);
+		draw.Translate(-pos);
+		draw.Scale(scale);
+		ct.Draw(draw);
 	}
 private:
 	Vec2_<float> pos;

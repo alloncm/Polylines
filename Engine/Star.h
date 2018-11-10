@@ -6,7 +6,7 @@ class Star :public Entity
 public:
 	Star(std::vector<Vec2_<float>> poly, Vec2_<float> p = { 0,0 }, float s = 1.0f, Color color = Colors::White, float ds = 1.0f, float ss = 1.0f, float sc = 1.0f)
 		:
-		Entity(std::move(poly), p, s, color),
+		Entity(std::move(poly), p, color),
 		downScale(ds),
 		speedScale(ss),
 		curScale(scale),
@@ -29,7 +29,8 @@ public:
 		ShrinkEffect();
 		ColorEffect(dt);
 	}
-	virtual std::vector<Vec2_<float>> GetPolyline() const override
+	
+	virtual std::vector<Vec2_<float>> GetPolyline() const
 	{
 		auto poly = verticies;
 		for (auto& v : poly)

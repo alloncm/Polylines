@@ -90,6 +90,17 @@ public:
 		return *this;
 	}
 
+	Vec2_<T>& operator= (const Vec2_<T>&v)
+	{
+		x = v.x;
+		y = v.y;
+		return *this;
+	}
+
+	Vec2_<T> operator-()
+	{
+		return Vec2_<T>(-x, -y);
+	}
 	float Distance(const Vec2_<T>& v) const
 	{
 		T x = std::abs(this->x - v.x);
